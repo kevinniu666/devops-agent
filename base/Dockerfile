@@ -1,4 +1,4 @@
-FROM centos:7
+FROM rockylinux:9.3
 
 # utils
 RUN yum install -y epel-release ca-certificates && \
@@ -18,27 +18,14 @@ RUN yum install -y epel-release ca-certificates && \
   perl-devel \
   zlib-devel \
   python-pip \
-  java-1.8.0-openjdk && \
+  java-1.8.0-openjdk telnet git && \
   yum -y clean all --enablerepo='*'
-
-RUN wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz && \
-    tar zxvf git-2.9.5.tar.gz --no-same-owner && \
-    cd git-2.9.5 && \
-    make configure && \
-    ./configure prefix=/usr/local/git/ && \
-    make && \
-    make install && \
-    mv /usr/local/git/bin/git /usr/bin/ && \
-    cd ..&& \
-    rm -rf git-2.9.5.tar.gz git-2.9.5 && \
-    git version
-
 
 
 # Set the locale(en_US.UTF-8)
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 # USER jenkins
 WORKDIR /home/jenkins
