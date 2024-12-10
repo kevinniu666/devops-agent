@@ -2,15 +2,8 @@ name: Build Images
 
 on:
   push:
-    branches:
-    - master
-    - test-* # make it be easier for contributors to test
     tags:
       - 'v*.*.*'
-  pull_request:
-    branches:
-      - 'master'
-
 jobs:
   BuildBase:
     runs-on: ubuntu-20.04

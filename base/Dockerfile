@@ -18,9 +18,10 @@ RUN yum install -y epel-release ca-certificates && \
   perl-devel \
   zlib-devel \
   python-pip \
-  java-1.8.0-openjdk telnet git && \
+  java-1.8.0-openjdk telnet git  tzdata && \
+  ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+  echo "Asia/Shanghai" > /etc/timezone && \
   yum -y clean all --enablerepo='*'
-
 
 # Set the locale(en_US.UTF-8)
 ENV LANG=en_US.UTF-8

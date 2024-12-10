@@ -2,15 +2,8 @@ name: Build Podman Images
 
 on:
   push:
-    branches:
-    - master
-    - test-* # make it be easier for contributors to test
     tags:
       - 'v*.*.*'
-  pull_request:
-    branches:
-      - 'master'
-
 jobs:
   BuildBase:
     runs-on: ubuntu-20.04
@@ -114,43 +107,43 @@ jobs:
         docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
         ghcr-token: ${{ secrets.GHCR_TOKEN }}
         build-args: "JDK_VERSION=1.8.0"
-  BuildMavenJDK11:
-    needs: BuildBase
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build maven(JDK11) agent
-      uses: ./.github/actions/build
-      with:
-        context: maven
-        dockerfile: maven/podman/Dockerfile
-        image-name: builder-maven
-        tag-suffix: -jdk11-podman
-        platforms: linux/amd64,linux/arm64
-        docker-namespace: ${{ secrets.DOCKER_HUB_USER }}
-        docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
-        ghcr-token: ${{ secrets.GHCR_TOKEN }}
-        build-args: "JDK_VERSION=11"
-
-  BuildMavenJDK17:
-    needs: BuildBase
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build maven(JDK17) agent
-        uses: ./.github/actions/build
-        with:
-          context: maven
-          dockerfile: maven/podman/Dockerfile
-          image-name: builder-maven
-          tag-suffix: -jdk17-podman
-          platforms: linux/amd64,linux/arm64
-          docker-namespace: ${{ secrets.DOCKER_HUB_USER }}
-          docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
-          ghcr-token: ${{ secrets.GHCR_TOKEN }}
-          build-args: |
-            "JDK_VERSION=17"
-            "JDK_HOME=/usr/java/default"
+#  BuildMavenJDK11:
+#    needs: BuildBase
+#    runs-on: ubuntu-20.04
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Build maven(JDK11) agent
+#      uses: ./.github/actions/build
+#      with:
+#        context: maven
+#        dockerfile: maven/podman/Dockerfile
+#        image-name: builder-maven
+#        tag-suffix: -jdk11-podman
+#        platforms: linux/amd64,linux/arm64
+#        docker-namespace: ${{ secrets.DOCKER_HUB_USER }}
+#        docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
+#        ghcr-token: ${{ secrets.GHCR_TOKEN }}
+#        build-args: "JDK_VERSION=11"
+#
+#  BuildMavenJDK17:
+#    needs: BuildBase
+#    runs-on: ubuntu-20.04
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Build maven(JDK17) agent
+#        uses: ./.github/actions/build
+#        with:
+#          context: maven
+#          dockerfile: maven/podman/Dockerfile
+#          image-name: builder-maven
+#          tag-suffix: -jdk17-podman
+#          platforms: linux/amd64,linux/arm64
+#          docker-namespace: ${{ secrets.DOCKER_HUB_USER }}
+#          docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
+#          ghcr-token: ${{ secrets.GHCR_TOKEN }}
+#          build-args: |
+#            "JDK_VERSION=17"
+#            "JDK_HOME=/usr/java/default"
 
   BuildGradle:
     needs: BuildBase

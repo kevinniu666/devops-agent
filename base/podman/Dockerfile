@@ -1,4 +1,4 @@
-FROM centos:7
+FROM rockylinux:9.3
 
 # utils
 RUN yum install -y epel-release ca-certificates && \
@@ -18,20 +18,10 @@ RUN yum install -y epel-release ca-certificates && \
   perl-devel \
   zlib-devel \
   python-pip \
-  java-1.8.0-openjdk && \
+  java-1.8.0-openjdk telnet git  tzdata && \
+  ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+  echo "Asia/Shanghai" > /etc/timezone && \
   yum -y clean all --enablerepo='*'
-
-RUN wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz && \
-    tar zxvf git-2.9.5.tar.gz --no-same-owner && \
-    cd git-2.9.5 && \
-    make configure && \
-    ./configure prefix=/usr/local/git/ && \
-    make && \
-    make install && \
-    mv /usr/local/git/bin/git /usr/bin/ && \
-    cd .. && \
-    rm -rf git-2.9.5.tar.gz git-2.9.5 && \
-    git version
 
 # Set the locale(en_US.UTF-8)
 ENV LANG en_US.UTF-8
@@ -57,8 +47,7 @@ ENV EXCLUDE_DOCKER 1
 RUN ./hack/install_utils.sh && rm -rf ./*
 
 # Install podman
-RUN curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_7/devel:kubic:libcontainers:stable.repo && \
-    yum -y install podman fuse-overlayfs && \
+RUN yum -y install podman fuse-overlayfs && \
     ln -s /usr/bin/podman /usr/bin/docker && \
     yum -y clean all --enablerepo='*'
 

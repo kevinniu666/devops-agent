@@ -1,10 +1,6 @@
 FROM kevinniu666/builder-base:v3.3.2
 
-# java
-ENV JAVA_VERSIOIN 1.8.0
-RUN yum install -y java-${JAVA_VERSIOIN}-openjdk-devel java-${JAVA_VERSIOIN}-openjdk-devel.i686 && \
-    yum -y clean all
-
+# java openjdk 1.8.0 has been installed in base image
 # gradle6
 ENV GRADLE_VERSION 6.9.1
 ENV GRADLE_HOME /usr/local/gradle-${GRADLE_VERSION}
