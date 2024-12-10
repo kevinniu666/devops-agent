@@ -173,34 +173,34 @@ jobs:
         docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
         ghcr-token: ${{ secrets.GHCR_TOKEN }}
 
-  BuildDotnet:
-    needs: BuildBase
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build DotNet agent
-      uses: ./.github/actions/build
-      with:
-        context: dotnet
-        dockerfile: dotnet/Dockerfile
-        image-name: builder-dotnet
-        platforms: linux/amd64,linux/arm64
-        docker-namespace: ${{ secrets.DOCKER_HUB_USER }}
-        docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
-        ghcr-token: ${{ secrets.GHCR_TOKEN }}
+#  BuildDotnet:
+#    needs: BuildBase
+#    runs-on: ubuntu-20.04
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Build DotNet agent
+#      uses: ./.github/actions/build
+#      with:
+#        context: dotnet
+#        dockerfile: dotnet/Dockerfile
+#        image-name: builder-dotnet
+#        platforms: linux/amd64,linux/arm64
+#        docker-namespace: ${{ secrets.DOCKER_HUB_USER }}
+#        docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
+#        ghcr-token: ${{ secrets.GHCR_TOKEN }}
 
-  BuildPython:
-    needs: BuildBase
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build Python agent
-      uses: ./.github/actions/build
-      with:
-        context: python
-        dockerfile: python/Dockerfile
-        image-name: builder-python
-        platforms: linux/amd64,linux/arm64
-        docker-namespace: ${{ secrets.DOCKER_HUB_USER }}
-        docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
-        ghcr-token: ${{ secrets.GHCR_TOKEN }}
+#  BuildPython:
+#    needs: BuildBase
+#    runs-on: ubuntu-20.04
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Build Python agent
+#      uses: ./.github/actions/build
+#      with:
+#        context: python
+#        dockerfile: python/Dockerfile
+#        image-name: builder-python
+#        platforms: linux/amd64,linux/arm64
+#        docker-namespace: ${{ secrets.DOCKER_HUB_USER }}
+#        docker-password: ${{ secrets.DOCKER_HUB_SECRETS }}
+#        ghcr-token: ${{ secrets.GHCR_TOKEN }}
