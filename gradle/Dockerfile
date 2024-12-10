@@ -11,9 +11,4 @@ RUN curl -fSL https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}
     unzip -q gradle.zip -d /usr/local && \
     rm -f gradle.zip
 
-# Set JDK to be 32bit
-COPY set_java $GRADLE_HOME
-RUN $GRADLE_HOME/set_java && \
-    rm -f $GRADLE_HOME/set_java
-
 CMD ["gradle","--version"]
